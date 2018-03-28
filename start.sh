@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker rmi karma-faucet
-docker build -t karma-faucet .
-docker run -p 9090:9090/tcp -it --rm --name karma-faucet karma-faucet
+docker rmi xzen-faucet
+docker build -t xzen-faucet .
+docker run -p 9090:9090/tcp -it --rm --name xzen-faucet xzen-faucet
