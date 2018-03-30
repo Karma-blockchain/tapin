@@ -99,6 +99,13 @@ def tapbasic(referrer):
         log.error(traceback.format_exc())
         return api_error(str(e))
 
+    account_id = None
+    try:
+        a = Account(account["name"], bitshares_instance=bitshares)
+        account_id = a.get("id")
+    except:
+        pass
+
     models.Accounts(account["name"], ip)
 
     balance = registrar.balance(config.core_asset)
@@ -110,6 +117,7 @@ def tapbasic(referrer):
         )
 
     return jsonify({"account": {
+        "account_id": account_id,
         "name": account["name"],
         "owner_key": account["owner_key"],
         "active_key": account["active_key"],
