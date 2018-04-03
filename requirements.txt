@@ -1,5 +1,5 @@
 # git repos
--e git://github.com/grapheneLab/python-graphenelib@master#egg=graphenelib
+-e git://github.com/grapheneLab/python-graphenelib@gravity#egg=graphenelib
 -e git://github.com/grapheneLab/python-bitshares@gravity#egg=bitshares
 autobahn
 pycrypto
