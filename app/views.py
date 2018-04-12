@@ -79,6 +79,13 @@ def tapbasic(referrer):
         return api_error("Unknown referrer: %s" % referrer)
     referrer_percent = account.get("referrer_percent", config.referrer_percent)
 
+    # Creadit Referrer
+    credit_referrer = account.get("credit_referrer", config.default_referrer) or config.default_referrer
+    try:
+        credit_referrer = Account(credit_referrer, bitshares_instance=bitshares)
+    except:
+        return api_error("Unknown referrer: %s" % credit_referrer)
+
     # Create new account
     try:
         bitshares.create_account(
@@ -94,6 +101,7 @@ def tapbasic(referrer):
             additional_active_accounts=config.get("additional_active_accounts", []),
             additional_owner_keys=config.get("additional_owner_keys", []),
             additional_active_keys=config.get("additional_active_keys", []),
+            extensions={"credit_referrer":credit_referrer["id"]},
         )
     except Exception as e:
         log.error(traceback.format_exc())
@@ -101,18 +109,26 @@ def tapbasic(referrer):
 
     models.Accounts(account["name"], ip)
 
-    balance = registrar.balance(config.core_asset)
+    created_account = None
+    try:
+        created_account = Account(account["name"], bitshares_instance=bitshares)
+    except:
+        pass
+
+    '''balance = registrar.balance(config.core_asset)
     if balance and balance.amount < config.balance_mailthreshold:
         log.critical(
             "The faucet's balances is below {}".format(
                 config.balance_mailthreshold
             ),
-        )
+        )'''
 
     return jsonify({"account": {
+        "id": created_account["id"],
         "name": account["name"],
         "owner_key": account["owner_key"],
         "active_key": account["active_key"],
         "memo_key": account["memo_key"],
-        "referrer": referrer["name"]
+        "referrer": referrer["name"],
+        "credit_referrer": credit_referrer["name"]
     }})

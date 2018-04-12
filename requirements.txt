@@ -1,7 +1,8 @@
 # git repos
 -e git://github.com/grapheneLab/python-graphenelib@karma#egg=graphenelib
--e git://github.com/grapheneLab/python-bitshares@karma#egg=bitshares
+-e git://github.com/grapheneLab/python-bitshares@karma-hf2#egg=bitshares
 autobahn
+cryptography
 pycrypto
 pyyaml
 
