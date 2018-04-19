@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  karma_faucet:
+    image: karma_faucet
+    container_name: karma_faucet
+    restart: on-failure
+    ports:
+      - "9090:9090"
