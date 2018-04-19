@@ -37,7 +37,7 @@ log.addHandler(log_handler_mail)
 log.addHandler(log_handler_stdout)
 
 bitshares = BitShares(
-    "wss://node.testnet.bitshares.eu",
+    config["witness_url"],
     keys=[config["wif"]],
     nobroadcast=False
 )

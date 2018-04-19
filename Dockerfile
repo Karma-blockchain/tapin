@@ -11,4 +11,5 @@ RUN python manage.py install
 
 EXPOSE 9090
 
-CMD [ "uwsgi", "--ini", "wsgi.ini" ]
+#CMD [ "uwsgi", "--ini", "wsgi.ini" ]
+CMD [ "./faucet.sh" ]

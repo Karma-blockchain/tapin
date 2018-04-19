@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 # git repos
 -e git://github.com/grapheneLab/python-graphenelib@karma#egg=graphenelib
 -e git://github.com/grapheneLab/python-bitshares@karma#egg=bitshares
+=======
+>>>>>>> 116f39a989879f00d0608a8ce7ee8a388e44a1b1
 autobahn
-cryptography
+ecdsa
+pylibscrypt
+websocket-client
 pycrypto
 pyyaml
 
@@ -21,3 +26,8 @@ configparser
 
 # misc
 requests>=2.9.1
+
+# git repos
+-e git://github.com/grapheneLab/python-graphenelib@karma#egg=graphenelib
+-e git://github.com/grapheneLab/python-bitshares@karma-hf2#egg=bitshares
+pycryptodome==3.4.6
