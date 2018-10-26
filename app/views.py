@@ -104,7 +104,7 @@ def tapbasic(referrer):
         log.error(traceback.format_exc())
         return api_error(str(e))
 
-    models.Accounts(account["name"], ip)
+    models.Accounts(account["name"], request.remote_addr)
 
     created_account = None
     try:
