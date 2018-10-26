@@ -36,12 +36,15 @@ def tapbasic(referrer):
             for key in ["active_key", "memo_key", "owner_key", "name"]]):
         abort(400)
 
+    whitelist_addrs = config.get('whitelist_addrs', ['127.0.0.1'])
+
     # prevent massive account registration
     if request.headers.get('X-Real-IP'):
         ip = request.headers.get('X-Real-IP')
     else:
         ip = request.remote_addr
-    if ip != "127.0.0.1" and models.Accounts.exists(ip):
+
+    if ip not in whitelist_addrs and models.Accounts.exists(ip):
         return api_error("Only one account per IP")
 
     # Check if account name is cheap name
