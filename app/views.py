@@ -37,8 +37,14 @@ def tapbasic(referrer):
         abort(400)
 
     whitelist_addrs = config.get('whitelist_addrs', ['127.0.0.1'])
+
     # prevent massive account registration
-    if request.remote_addr not in whitelist_addrs and models.Accounts.exists(request.remote_addr):
+    if request.headers.get('X-Real-IP'):
+        ip = request.headers.get('X-Real-IP')
+    else:
+        ip = request.remote_addr
+
+    if ip not in whitelist_addrs and models.Accounts.exists(ip):
         return api_error("Only one account per IP")
 
     # Check if account name is cheap name
@@ -104,7 +110,7 @@ def tapbasic(referrer):
         log.error(traceback.format_exc())
         return api_error(str(e))
 
-    models.Accounts(account["name"], request.remote_addr)
+    models.Accounts(account["name"], ip)
 
     created_account = None
     try:
